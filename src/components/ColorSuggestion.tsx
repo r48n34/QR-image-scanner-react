@@ -1,5 +1,5 @@
-import { Card, Text, Group, ColorSwatch } from '@mantine/core';
-// import { darken } from '@mantine/core';
+import { Card, Text, Group, ColorSwatch, Tooltip } from '@mantine/core';
+// https://wonder-wardrobe.com/blog/5-color-outfit-matching-methods
 import { monochromeColorList } from '../utils/colorChnage';
 
 type ColorSuggestionProps = {
@@ -16,18 +16,16 @@ function ColorSuggestion({ pickedColor }: ColorSuggestionProps) {
                 </Text>
 
                 <Text w={500} fw={300} mb={8}>
-                    {pickedColor}
-                </Text>
-
-                <Text w={500} fw={300} mb={8}>
                     The Monochrome Look:
                 </Text>
 
                 <Group>
-                    {monochromeColorList(pickedColor).map(v => <ColorSwatch color={v} size={48}/>)}
+                    {monochromeColorList(pickedColor).map(v =>
+                        <Tooltip key={v.hsl} label={v.rgb}>
+                            <ColorSwatch color={v.hsl} size={48}/>
+                        </Tooltip>
+                    )}
                 </Group>
-
-
 
             </Card>
         </>
