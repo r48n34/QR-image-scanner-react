@@ -5,6 +5,7 @@ import jsQR from "jsqr";
 import { IconUpload } from '@tabler/icons-react';
 import DisplayImageCard from './DisplayImageCard';
 import { useEffect } from 'react';
+import QRcodeData from './QRcodeData';
 
 interface FormObject {
     file: File | null
@@ -85,7 +86,10 @@ function UploadForm() {
                 />
 
                 {form.values.file
-                    ? <DisplayImageCard src={URL.createObjectURL(form.values.file)} />
+                    ? (<>
+                        <DisplayImageCard src={URL.createObjectURL(form.values.file)} />
+                        <QRcodeData src={URL.createObjectURL(form.values.file)}/>
+                    </>)
                     : <></>
                 }
 

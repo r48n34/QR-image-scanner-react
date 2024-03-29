@@ -32,7 +32,7 @@ export function rgbToHSL(str: string = "rgb(24, 40, 50)") {
 // input: h as an angle in [0,360] and s,l in [0,1] - output: r,g,b in [0,1]
 export function hslStringToRgb(data: { h: number, s: number, l: number }) {
     let { h, s, l } = data;
-    console.log(data)
+    // console.log(data);
     s /= 100
     l /= 100
 
@@ -74,7 +74,7 @@ export function monochromeColorList(color: string = "rgb(24, 40, 50)") {
         const finalHSLStr = hslObjectToString(currentHSL);
         const finalRGBStr = hslStringToRgb(currentHSL);
 
-        console.log(finalRGBStr)
+        // console.log(finalRGBStr)
 
         colorArr.push({
             hsl: finalHSLStr,
