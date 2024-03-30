@@ -2,7 +2,7 @@
 
 Your website serverless QR scanner.  
 
-URL: TBD  
+URL: https://qr-image-scanner-react.vercel.app/    
 
 ## Features  
 TBD    
