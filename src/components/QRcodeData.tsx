@@ -1,6 +1,8 @@
-import { Card, Text } from '@mantine/core';
-import jsQR from 'jsqr';
+import { Card, Group, Text, Textarea } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { imageSrcToQR } from '../utils/qrUtils';
+import { notifications } from '@mantine/notifications';
+import CopyTextBtn from './CopyTextBtn';
 
 function isValidHttpUrl(str: string) {
     let url;
@@ -15,46 +17,31 @@ function isValidHttpUrl(str: string) {
 }
 
 type QRcodeDataProps = {
-    src: string;
+    src: string
+    title: string
 }
 
-function QRcodeData({ src }: QRcodeDataProps) {
+function QRcodeData({ src, title = "QR data" }: QRcodeDataProps) {
 
     const [qrCodeData, setQrCodeData] = useState<string>("");
-
-    async function imageDataFromSource(source: string) {
-        const image = Object.assign(new Image(), { src: source });
-        await new Promise(resolve => image.addEventListener('load', () => resolve(null)));
-
-        const context = Object.assign(document.createElement('canvas'), {
-            width: image.width,
-            height: image.height
-        }).getContext('2d') as CanvasRenderingContext2D;
-
-        context.imageSmoothingEnabled = false;
-        context.drawImage(image, 0, 0);
-
-        return {
-            data: context.getImageData(0, 0, image.width, image.height),
-            width: image.width,
-            height: image.height,
-        }
-    }
 
     useEffect(() => {
         (async () => {
             setQrCodeData("");
 
             if (src) {
+                const imagesArray = await imageSrcToQR(src)
 
-                const imagesArray = await imageDataFromSource(src)
-                const code = jsQR(imagesArray.data.data, imagesArray.width, imagesArray.height);
+                if (imagesArray) {
+                    setQrCodeData(imagesArray)
 
-                if (code) {
-                    console.log("Found QR code", code);
-                    setQrCodeData(code.data)
+                    if(title === "Original images QR found"){
+                        notifications.show({
+                            title: 'Global QR found',
+                            message: 'A valid QR code has found on your image',
+                        })
+                    }
                 }
-
             }
         })()
     }, [src]);
@@ -65,7 +52,7 @@ function QRcodeData({ src }: QRcodeDataProps) {
                 <Card shadow="sm" padding="md" radius="md" withBorder mb={12}>
 
                     <Text w={500} fw={300} mb={8} fz={18}>
-                        QR data
+                       { title }
                     </Text>
 
                     <Text 
@@ -76,6 +63,15 @@ function QRcodeData({ src }: QRcodeDataProps) {
                     >
                         {qrCodeData}
                     </Text>
+
+                    <Textarea
+                        label="Raw data"
+                        value={qrCodeData}
+                    />
+
+                    <Group justify='flex-end' mt={12}>
+                        <CopyTextBtn data={qrCodeData} />
+                    </Group>
 
                 </Card>
             )}

@@ -1,6 +1,6 @@
 import { Card, Text, Group, ColorSwatch, Tooltip } from '@mantine/core';
 // https://wonder-wardrobe.com/blog/5-color-outfit-matching-methods
-import { monochromeColorList } from '../utils/colorChnage';
+import { monochromeColorList } from '../utils/colorChange';
 
 type ColorSuggestionProps = {
     pickedColor: string; // rgb(24, 40, 50)
