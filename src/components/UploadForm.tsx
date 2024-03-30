@@ -1,10 +1,6 @@
 import { FileInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
-// import jsQR from "jsqr";
-
 import { IconUpload } from '@tabler/icons-react';
-// import DisplayImageCard from './DisplayImageCard';
-// import { useEffect } from 'react';
 import QRcodeData from './QRcodeData';
 import CropImagesCheck from './CropImagesCheck';
 
@@ -29,44 +25,9 @@ function UploadForm() {
         },
     });
 
-    // async function imageDataFromSource(source: string) {
-    //     const image = Object.assign(new Image(), { src: source });
-    //     await new Promise(resolve => image.addEventListener('load', () => resolve(null)));
-        
-    //     const context = Object.assign(document.createElement('canvas'), {
-    //         width: image.width,
-    //         height: image.height
-    //     }).getContext('2d') as CanvasRenderingContext2D;
-
-    //     context.imageSmoothingEnabled = false;
-    //     context.drawImage(image, 0, 0);
-
-    //     return {
-    //         data: context.getImageData(0, 0, image.width, image.height),
-    //         width: image.width,
-    //         height: image.height,
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     (async () => {
-    //         if (form.values.file) {
-    
-    //             const imagesArray = await imageDataFromSource(URL.createObjectURL(form.values.file))
-    //             const code = jsQR(imagesArray.data.data, imagesArray.width, imagesArray.height);
-    
-    //             if (code) {
-    //                 console.log("Found QR code", code);
-    //             }
-    
-    //         }
-    //     })()
-    // }, [form.values.file]);
-
-
     return (
         <>
-            <Text ta="center" mt={24} fz={36} fw={300}>
+            <Text ta="center" fz={36} fw={300}>
                 QR scan
             </Text>
 
