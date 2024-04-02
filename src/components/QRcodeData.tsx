@@ -1,5 +1,6 @@
-import { Card, Group, Text, Textarea } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { Accordion, Card, Group, Text, Textarea } from '@mantine/core';
+import QRCode from "react-qr-code";
 import { imageSrcToQR } from '../utils/qrUtils';
 import { notifications } from '@mantine/notifications';
 import CopyTextBtn from './CopyTextBtn';
@@ -35,7 +36,7 @@ function QRcodeData({ src, title = "QR data" }: QRcodeDataProps) {
                 if (imagesArray) {
                     setQrCodeData(imagesArray)
 
-                    if(title === "Original images QR found"){
+                    if (title === "Original images QR found") {
                         notifications.show({
                             title: 'Global QR found',
                             message: 'A valid QR code has found on your image',
@@ -52,26 +53,48 @@ function QRcodeData({ src, title = "QR data" }: QRcodeDataProps) {
                 <Card shadow="sm" padding="md" radius="md" withBorder mb={12}>
 
                     <Text w={500} fw={300} mb={8} fz={18}>
-                       { title }
+                        {title}
                     </Text>
 
-                    <Text 
+                    <Text
                         w={500} fw={300} mb={8}
-                        component={isValidHttpUrl(qrCodeData) ? "a": "span"}
-                        href={isValidHttpUrl(qrCodeData) ? qrCodeData: ""}
+                        component={isValidHttpUrl(qrCodeData) ? "a" : "span"}
+                        href={isValidHttpUrl(qrCodeData) ? qrCodeData : ""}
                         target="_blank"
                     >
                         {qrCodeData}
                     </Text>
 
-                    <Textarea
-                        label="Raw data"
-                        value={qrCodeData}
-                    />
 
-                    <Group justify='flex-end' mt={12}>
-                        <CopyTextBtn data={qrCodeData} />
-                    </Group>
+
+                    <Accordion defaultValue="Apples">
+                        <Accordion.Item key={"Raw data"} value={"Raw data"}>
+                            <Accordion.Control>
+                                Raw data
+                            </Accordion.Control>
+
+                            <Accordion.Panel>
+                                <Textarea
+                                    label="Raw data"
+                                    value={qrCodeData}
+                                />
+
+                                <Group justify='flex-end' mt={12}>
+                                    <CopyTextBtn data={qrCodeData} />
+                                </Group>
+                            </Accordion.Panel>
+                        </Accordion.Item>
+
+                        <Accordion.Item key={"QR"} value={"QR"}>
+                            <Accordion.Control>
+                                Re-generated QR Code
+                            </Accordion.Control>
+
+                            <Accordion.Panel>
+                                <QRCode value={qrCodeData} />
+                            </Accordion.Panel>
+                        </Accordion.Item>
+                    </Accordion>
 
                 </Card>
             )}
