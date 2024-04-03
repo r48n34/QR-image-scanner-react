@@ -35,7 +35,7 @@ function UploadForm() {
                 Your website serverless QR scan
             </Text>
 
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <form>
 
                 <FileInput
                     placeholder="hello.png"
@@ -49,7 +49,6 @@ function UploadForm() {
 
                 {form.values.file
                     ? (<>
-                        {/* <DisplayImageCard src={URL.createObjectURL(form.values.file)} /> */}
                         <QRcodeData title={"Original images QR found"} src={URL.createObjectURL(form.values.file)}/>
                         <CropImagesCheck src={URL.createObjectURL(form.values.file)}/>
                     </>)

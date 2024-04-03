@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
+
 import { Suspense, lazy } from 'react';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
@@ -13,7 +14,6 @@ const router = createBrowserRouter([
 		path: "/",
 		element: <HomePage />,
 	},
-
 ]);
 
 function App() {

@@ -23,10 +23,5 @@ export async function imageSrcToQR(src: string) {
     const imagesArray = await imageDataFromSource(src)
     const code = jsQR(imagesArray.data.data, imagesArray.width, imagesArray.height);
 
-    if (code) {
-        // console.log("Found QR code", code);
-        return code.data
-    }
-
-    return ""
+    return code ? code.data : ""
 }

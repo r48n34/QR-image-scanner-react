@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react';
+import { notifications } from '@mantine/notifications';
 import { Accordion, Card, Group, Text, Textarea } from '@mantine/core';
 import QRCode from "react-qr-code";
 import { imageSrcToQR } from '../utils/qrUtils';
-import { notifications } from '@mantine/notifications';
 import CopyTextBtn from './CopyTextBtn';
 
 function isValidHttpUrl(str: string) {
-    let url;
-
     try {
-        url = new URL(str);
-    } catch (_) {
+        let url = new URL(str);
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+    catch (_) {
         return false;
     }
-
-    return url.protocol === "http:" || url.protocol === "https:";
 }
 
 type QRcodeDataProps = {
@@ -65,8 +63,6 @@ function QRcodeData({ src, title = "QR data" }: QRcodeDataProps) {
                         {qrCodeData}
                     </Text>
 
-
-
                     <Accordion defaultValue="Apples">
                         <Accordion.Item key={"Raw data"} value={"Raw data"}>
                             <Accordion.Control>
@@ -95,7 +91,7 @@ function QRcodeData({ src, title = "QR data" }: QRcodeDataProps) {
                             </Accordion.Panel>
                         </Accordion.Item>
                     </Accordion>
-
+                    
                 </Card>
             )}
         </>

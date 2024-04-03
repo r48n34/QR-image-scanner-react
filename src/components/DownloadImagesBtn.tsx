@@ -9,17 +9,20 @@ type DownloadImagesBtnProps = {
 function DownloadImagesBtn({ imgSrc, fileName = "qr_code_images" }: DownloadImagesBtnProps) {
 
     function downloadImages() {
-
-        if (document) {
-            let a = document.createElement("a");
-            (a as any).style = "display: none";
-            document.body.appendChild(a);
-            a.href = imgSrc;
-            a.download = fileName;
-            a.click();
-            window.URL.revokeObjectURL(imgSrc);
+        try {
+            if (document) {
+                let a = document.createElement("a");
+                (a as any).style = "display: none";
+                document.body.appendChild(a);
+                a.href = imgSrc;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(imgSrc);
+            }
         }
-
+        catch (error: any) {
+            console.log(error);  
+        }
     }
 
     return (

@@ -1,12 +1,12 @@
 import { Container, Group } from '@mantine/core';
+import { IconBrandGithubFilled } from '@tabler/icons-react';
+
 import UploadForm from "../components/UploadForm";
 import GoUrlBtn from '../components/GoUrlBtn';
-import { IconBrandGithubFilled } from '@tabler/icons-react';
 
 function HomePage() {
     return (
         <>
-
             <Group justify="flex-end" mt={16} mr={16}>
                 <GoUrlBtn
                     title="Github"
